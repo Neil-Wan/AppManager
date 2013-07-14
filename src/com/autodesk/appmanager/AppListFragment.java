@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,22 +75,26 @@ public class AppListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        App[] apps = new App[] { new App("com.sketchbook", "SBM"),
-                new App("com.adsk.sketchbook.galaxy", "SBM Samsung"), new App("com.adsk.sketchbookhd", "SBP"),
-                new App("com.adsk.sketchbookhd.galaxy", "SBP Samsung"), new App("com.pixlr.express", "Pixlr Express"),
-                new App("pixlr.OMatic", "Pixlr OMatic"), };
-        
+
+        App[] apps = new App[] { /*
+                                  * new App("com.sketchbook", "SBM"), new App("com.adsk.sketchbook.galaxy",
+                                  * "SBM Samsung"), new App("com.adsk.sketchbookhd", "SBP"), new
+                                  * App("com.adsk.sketchbookhd.galaxy", "SBP Samsung"), new App("pixlr.OMatic",
+                                  * "Pixlr OMatic"),
+                                  */
+        new App("com.pixlr.express", "Pixlr Express") };
+
         PackageManager pm = this.getActivity().getPackageManager();
         for (App app : apps) {
             try {
-                PackageInfo pInfo = pm.getPackageInfo(app.getPackageName(), 0);
+                PackageInfo pInfo = pm.getPackageInfo(app.getPackageName(), PackageManager.GET_SIGNATURES);
                 app.setInfo(pm, pInfo);
+                AppManager.getInstance().install(this.getActivity(), app,
+                        Environment.getExternalStorageDirectory() + "/Download/Pixlr_Express_1.2.apk");
             } catch (NameNotFoundException e) {
             }
         }
 
-        // TODO: replace with a real list adapter.
         setListAdapter(new AppListAdapter(getActivity(), 0, apps));
     }
 

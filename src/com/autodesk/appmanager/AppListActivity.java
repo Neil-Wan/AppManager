@@ -43,6 +43,12 @@ public class AppListActivity extends FragmentActivity implements AppListFragment
         // TODO: If exposing deep links into your app, handle intents here.
     }
 
+    @Override
+    protected void onActivityResult(int arg0, int arg1, Intent arg2) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(arg0, arg1, arg2);
+    }
+
     /**
      * Callback method from {@link AppListFragment.Callbacks} indicating that the item with the given ID was selected.
      */

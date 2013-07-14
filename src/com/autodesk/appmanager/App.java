@@ -2,6 +2,7 @@ package com.autodesk.appmanager;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.graphics.drawable.Drawable;
 
 public class App {
@@ -31,6 +32,15 @@ public class App {
     public void setInfo(PackageManager pm, PackageInfo info) {
         mPackageInfo = info;
         mIcon = info.applicationInfo.loadIcon(pm);
+    }
+
+    public int getVersionCode() {
+        return mPackageInfo.versionCode;
+    }
+
+    public Signature getSignature() {
+        Signature[] signatures = mPackageInfo.signatures;
+        return signatures[0];
     }
 
     public int getInstallStatus() {
