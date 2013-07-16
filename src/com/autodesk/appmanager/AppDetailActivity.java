@@ -1,5 +1,6 @@
 package com.autodesk.appmanager;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
  */
 public class AppDetailActivity extends FragmentActivity {
 
+    @TargetApi(11)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +23,10 @@ public class AppDetailActivity extends FragmentActivity {
 
         // Show the Up button in the action bar.
         getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        int index = getIntent().getIntExtra(AppDetailFragment.ARG_ITEM_ID, 0);
+        App app = AppManager.getInstance().getApps()[index];
+        getActionBar().setTitle(app.getDisplayName());
 
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity
@@ -35,8 +41,7 @@ public class AppDetailActivity extends FragmentActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(AppDetailFragment.ARG_ITEM_ID, getIntent()
-                    .getStringExtra(AppDetailFragment.ARG_ITEM_ID));
+            arguments.putInt(AppDetailFragment.ARG_ITEM_ID, index);
             AppDetailFragment fragment = new AppDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction().add(R.id.app_detail_container, fragment).commit();

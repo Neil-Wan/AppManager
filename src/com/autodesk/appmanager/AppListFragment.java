@@ -17,8 +17,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.autodesk.appmanager.dummy.DummyContent;
-
 /**
  * A list fragment representing a list of Apps. This fragment also supports tablet devices by allowing list items to be
  * given an 'activated' state upon selection. This helps indicate which item is currently being viewed in a
@@ -52,7 +50,7 @@ public class AppListFragment extends ListFragment {
         /**
          * Callback for when an item has been selected.
          */
-        public void onItemSelected(String id);
+        public void onItemSelected(int index);
     }
 
     /**
@@ -61,7 +59,7 @@ public class AppListFragment extends ListFragment {
      */
     private static Callbacks sDummyCallbacks = new Callbacks() {
         @Override
-        public void onItemSelected(String id) {
+        public void onItemSelected(int index) {
         }
     };
 
@@ -76,14 +74,7 @@ public class AppListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        App[] apps = new App[] { /*
-                                  * new App("com.sketchbook", "SBM"), new App("com.adsk.sketchbook.galaxy",
-                                  * "SBM Samsung"), new App("com.adsk.sketchbookhd", "SBP"), new
-                                  * App("com.adsk.sketchbookhd.galaxy", "SBP Samsung"), new App("pixlr.OMatic",
-                                  * "Pixlr OMatic"),
-                                  */
-        new App("com.pixlr.express", "Pixlr Express") };
-
+        App[] apps = AppManager.getInstance().getApps();
         PackageManager pm = this.getActivity().getPackageManager();
         for (App app : apps) {
             try {
@@ -134,7 +125,7 @@ public class AppListFragment extends ListFragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
-        mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+        mCallbacks.onItemSelected(position);
     }
 
     @Override

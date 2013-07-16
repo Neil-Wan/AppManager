@@ -53,13 +53,13 @@ public class AppListActivity extends FragmentActivity implements AppListFragment
      * Callback method from {@link AppListFragment.Callbacks} indicating that the item with the given ID was selected.
      */
     @Override
-    public void onItemSelected(String id) {
+    public void onItemSelected(int index) {
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
             // fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(AppDetailFragment.ARG_ITEM_ID, id);
+            arguments.putInt(AppDetailFragment.ARG_ITEM_ID, index);
             AppDetailFragment fragment = new AppDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction().replace(R.id.app_detail_container, fragment).commit();
@@ -68,7 +68,7 @@ public class AppListActivity extends FragmentActivity implements AppListFragment
             // In single-pane mode, simply start the detail activity
             // for the selected item ID.
             Intent detailIntent = new Intent(this, AppDetailActivity.class);
-            detailIntent.putExtra(AppDetailFragment.ARG_ITEM_ID, id);
+            detailIntent.putExtra(AppDetailFragment.ARG_ITEM_ID, index);
             startActivity(detailIntent);
         }
     }

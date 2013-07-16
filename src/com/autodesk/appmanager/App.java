@@ -12,13 +12,15 @@ public class App {
 
     private final String mPackageName;
     private final String mDisplayName;
+    private final String mDownloadUrl;
     private PackageInfo mPackageInfo;
     private int mLatestVersionCode;
     private Drawable mIcon;
 
-    public App(String packageName, String displayName) {
+    public App(String packageName, String displayName, String downloadUrl) {
         mPackageName = packageName;
         mDisplayName = displayName;
+        mDownloadUrl = downloadUrl;
     }
 
     public String getPackageName() {
@@ -27,6 +29,10 @@ public class App {
 
     public String getDisplayName() {
         return mDisplayName;
+    }
+
+    public String getDownloadUrl() {
+        return mDownloadUrl;
     }
 
     public void setInfo(PackageManager pm, PackageInfo info) {

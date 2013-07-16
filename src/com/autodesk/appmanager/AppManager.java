@@ -18,6 +18,18 @@ public class AppManager {
         return sInstance;
     }
 
+    private final App[] mApps = new App[] { /*
+                                             * new App("com.sketchbook", "SBM"), new App("com.adsk.sketchbook.galaxy",
+                                             * "SBM Samsung"), new App("com.adsk.sketchbookhd", "SBP"), new
+                                             * App("com.adsk.sketchbookhd.galaxy", "SBP Samsung"), new
+                                             * App("pixlr.OMatic", "Pixlr OMatic"),
+                                             */
+    new App("com.pixlr.express", "Pixlr Express") };
+
+    public App[] getApps() {
+        return mApps;
+    }
+
     public void install(Activity context, App app, String apkPath) {
         PackageInfo pInfo = Application.getApplication().getPackageManager()
                 .getPackageArchiveInfo(apkPath, PackageManager.GET_SIGNATURES);
